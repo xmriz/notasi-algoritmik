@@ -12,6 +12,7 @@ Daftar isi:
   * [Ekspresi](#ekspresi)
   * [Nama Variabel dan Konstanta](#nama-variabel-dan-konstanta)
   * [Array](#array)
+* [Analisis Kasus](#analisis-kasus)
 * [Fungsi dan Prosedur](#fungsi-dan-prosedur)
   * [Fungsi](#fungsi)
   * [Prosedur](#prosedur)
