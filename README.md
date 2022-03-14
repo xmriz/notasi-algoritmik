@@ -143,6 +143,27 @@ arrayJam : array[0..59] of Jam
 
 Cara akses: `NamaArray[idx]` dengan `idx` harus di dalam range definisi array tersebut
 
+
+## Analisis Kasus
+
+* Dua Kasus Komplementer
+```
+if (<kondisi>) then
+    <aksi-1>
+else { kondisi=false }
+    <aksi-2>
+```
+
+* Banyak Kasus
+```
+depend on (<var1>,...)
+    <kondisi-1> : <aksi-1>
+    <kondisi-2> : <aksi-2>
+    ...
+else { <kondisi-n> }
+    <aksi-n>
+```
+
 ## Fungsi dan Prosedur
 
 ### Fungsi
