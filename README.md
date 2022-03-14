@@ -33,6 +33,9 @@ Program NamaProgram
 KAMUS
     { Deklarasi variabel }
         a, b: integer
+        c : integer >= 0
+    { Deklarasi konstanta }
+        constant PI : real = 3.14
 
 ALGORITMA
     input(a)
