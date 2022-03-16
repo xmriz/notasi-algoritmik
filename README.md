@@ -37,6 +37,8 @@ KAMUS
         c : integer >= 0
     { Deklarasi konstanta }
         constant PI : real = 3.14
+    { Deklarasi tipe bentukan }
+        type Matriks : array [1..3] of array [1..3] of integer
 
 ALGORITMA
     input(a)
