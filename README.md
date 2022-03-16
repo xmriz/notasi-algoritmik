@@ -215,6 +215,9 @@ NamaProsedur(param1, param2, parametc)
 Catatan: 
 * Jumlah parameter bebas, bisa juga tanpa parameter
 * Setiap parameter bisa dijadikan input, output, atau keduanya (input/output)
+    * input : parameter sudah terdefinisi sebelum prosedur dipanggil
+    * output : parameter akan terdefinisi dalam prosedur
+    * input/output : sudah terdefinisi sebelum prosedur dipanggil, tetapi nilainya bisa berubah di dalam prosedur
 
 ## Loop
 
