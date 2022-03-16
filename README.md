@@ -101,6 +101,7 @@ type Time:    < hours: integer[0..23], 		{ 0 ≤ hours ≤ 23 }
                 minutes: integer[0..59], 	{ 0 ≤ minutes ≤ 59 }
                 seconds: integer[0..59] > 	{ 0 ≤ seconds ≤ 59 }
 ```
+Note : biasanya didefinisikan di KAMUS
 
 ### Ekspresi
 
