@@ -251,7 +251,7 @@ while <kondisi-loop> do
 
 ### Iterate-Stop
 
-Gabungan bentuk while dan repeat-until, cek kondisi di tengah (di bagian stop)
+Gabungan bentuk repeat-until dan while do, cek kondisi di tengah (di bagian stop)
 ```
 iterate
     <aksi-1>
