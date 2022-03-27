@@ -32,13 +32,13 @@ Program NamaProgram
 { Spesifikasi Program: Tuliskan di sini }
 
 KAMUS
-    { Deklarasi variabel }
-        a, b: integer
-        c : integer >= 0
-    { Deklarasi konstanta }
-        constant PI : real = 3.14
-    { Deklarasi tipe bentukan }
-        type Matriks : array [1..3] of array [1..3] of integer
+{ Deklarasi variabel }
+    a, b: integer
+    c : integer >= 0
+{ Deklarasi konstanta }
+    constant PI : real = 3.14
+{ Deklarasi tipe bentukan }
+    type Matriks : array [1..3] of array [1..3] of integer
 
 ALGORITMA
     input(a)
