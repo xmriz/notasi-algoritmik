@@ -1,7 +1,5 @@
 # Notasi Algoritmik CheatSheet
 
-Kitab lengkap notasi algoritmik --kalo ada yang kurang bisa tambahin aja
-
 Daftar isi:
 
 * [Notasi Algoritmik Umum](#notasi-algoritmik-umum)
@@ -274,3 +272,142 @@ Contoh:
 i traversal [0..8]
     output(i)
 ```
+
+
+# SKEMA STANDAR
+
+Daftar Isi :
+*[Bag. 1]()
+*[Bag. 2]()
+*[Bag. 3]()
+*[Bag. 4]()
+
+## Bagian 1 : Validasi, Pengulangan, Pemrosesan Sekuensial
+
+### Validasi 1
+
+```
+SKEMA PROSES_VALIDASI
+{ Skema program yang menerima input data, hanya melakukan proses jika data valid }
+
+KAMUS
+{ deklarasi data_input }
+
+ALGORITMA
+    input(<data>)
+    if (<data_valid>) then
+        <proses>
+    else
+        output(<pesan_kesalahan>)
+```
+
+### Skema Pengulangan
+
+1. Berdasarkan jumlah pengulangan:
+    * Diketahui secara persis berapa kali aksi harus dilakukan
+        ```
+        repeat n times
+            <aksi>
+        ```
+
+2. Berdasarkan kondisi berhenti:
+    * Aksi minimum dilakukan 1x (karena kondisi berhenti dicek setalah aksi dieksekusi)
+        ```
+        repeat
+            <aksi>
+        until <kondisi-berhenti>
+        ```
+
+3. Berdasarkan kondisi mengulang:
+    * Dimungkinkan aksi tidak pernah dilakukan (karena kondisi mengulang dicek sebelum aksi dilakukan)
+        ```
+        while <kondisi-loop> do
+            <aksi>
+        ```
+
+4. Berdasarkan dua aksi:
+    * merupakan gabungan dari repeat-until dan while-do
+    * aksi-1 minimum dilakukan 1x dan aksi-2 bisa tidak dilakukan sama sekali
+        ```
+        iterate
+            <aksi-1>
+        stop <kondisi-berhenti>
+            <aksi-2>
+        ```
+
+5. Berdasarkan pencacah:
+    * Pencacah harus bertype ordinal (integer)
+    * Diketahui dengan pasti nilai awal dan akhir pencacah
+        ```
+        { mencacah maju }
+        <pencacah> traversal [<min>..<max>]
+            <aksi>
+        { mencacah mundur }
+        <pencacah> traversal [<max>..<min>]
+            <aksi>
+        ```
+
+
+### Skema Pemrosesan Sekuensial
+
+Note : 
+* First_Elmt : Elemen pertama
+* Current_ELmt : Elemen yang siap diproses
+* Next_Elmt : Elemen yang diakses setelah Current_Elmt
+* EOP : Tanda akhir proses, Bernilai True jika,
+    * Dengan Mark : elemen terakhir adalah elemen fiktif (bukan anggota elemen yang diproses)
+    ex :
+        ```
+        SKEMA PEMROSESAN SEKUENSIAL DENGAN MARK
+        { Tanpa penanganan kasus kosong }
+        SKEMA
+            Inisialisasi
+            First_Elmt
+            while not (EOP) do
+                proses_Current_ELmt
+                Next_Elmt
+            {EOP}
+            Terminasi
+        ``` 
+        ```
+        SKEMA PEMROSESAN SEKUENSIAL TANPA MARK
+        { Dengan penanganan kasus kosong }
+        SKEMA
+            First_Elmt
+            if (EOP) then
+                proses_Kasus_Kosong
+            else
+                Inisialisasi
+                repeat
+                    proses_Current_Elmt
+                    Next_Elmt
+                until (EOP)
+                Terminasi
+        ```
+    * Tanpa Mark : elemen terakhir bagian dari elemen yang diproses (tidak mungkin ada kasus kosong)
+    ex :
+        ```
+        SKEMA PEMROSESAN SEKUENSIAL TANPA MARK
+        { Tanpa penanganan kasus kosong }
+        { Dengan iterate-stop }
+        SKEMA
+            Inisialisasi
+            First_Elmt
+            iterate
+                proses_Current_Elmt
+            stop (EOP)
+                Next_Elmt
+            Terminasi
+        ```
+        ```
+        SKEMA PEMROSESAN SEKUENSIAL TANPA MARK
+        { Tanpa penanganan kasus kosong }
+        { Dengan repeat-until }
+        
+        ```
+
+
+    
+
+
+
