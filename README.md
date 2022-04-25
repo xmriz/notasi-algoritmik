@@ -277,14 +277,17 @@ i traversal [0..8]
 # SKEMA STANDAR
 
 Daftar Isi :
-*[Bag. 1]()
-*[Bag. 2]()
+*[Bag. 1](#bagian-1--validasi-pengulangan-pemrosesan-sekuensial)
+    *[Skema Validasi 1](#skema-validasi-1)
+    *[Skema Pengulangan](#skema-pengulangan)
+    *[Skema Pemrosesan Sekuensial](#skema-pemrosesan-sekuensial)
+*[Bag. 2](#bagian-2--skema-traversal-pencarian-nilai-ekstrim-dan-searching-pada-array)
 *[Bag. 3]()
 *[Bag. 4]()
 
 ## Bagian 1 : Validasi, Pengulangan, Pemrosesan Sekuensial
 
-### Validasi 1
+### Skema Validasi 1
 
 ```
 SKEMA PROSES_VALIDASI
@@ -403,11 +406,18 @@ Note :
         SKEMA PEMROSESAN SEKUENSIAL TANPA MARK
         { Tanpa penanganan kasus kosong }
         { Dengan repeat-until }
-        
+        SKEMA
+            Inisialisasi
+            First_Elmt
+            repeat
+                proses_Current_Elmt
+                Next_Elmt
+            until (EOP)
+            Terminasi
         ```
 
 
-    
+## Bagian 2 : Skema Traversal, Pencarian Nilai Ekstrim, dan Searching pada Array    
 
 
 
