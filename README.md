@@ -92,7 +92,7 @@ type Struct:    < data1: integer,					{ integer dibolehkan }
                   data4: array[0..9] of character >	{ karakter/string juga dibolehkan }
 ```
 
-Cara akses variabel: `varName.data1`, `varName.data2`, dsb.
+Cara akses variabel: `varName.data1`, `varName.data2[3]`, dsb.
 
 Contoh:
 
@@ -128,13 +128,13 @@ Nama variabel yang tidak dibolehkan
 ### Array
 
 ```
-NamaArray : array [valMin..valMax] of datatype
+NamaArray : array [idMin..idMax] of datatype
 ```
 
 Keterangan:
 * `NamaArray` bisa apa saja
-* `valMin` biasanya adalah `0`, `valMax` terserah
-* `valMin` dan `valMax` harus merupakan tipe integer
+* `idMin` biasanya adalah `0`, `idMax` terserah
+* `idMin` dan `idMax` harus merupakan tipe integer
 * `datatype` bebas, bisa data bentukan/struct
 
 Contoh:
@@ -142,9 +142,16 @@ Contoh:
 arrayInt : array[0..8] of integer
 arrayJam : array[0..59] of Jam
 ```
-
 Cara akses: `NamaArray[idx]` dengan `idx` harus di dalam range definisi array tersebut
 
+```
+{ Array yang terisi sebagian }
+constant NMax : integer = 100
+type TabInt : <Tab : array [1..NMax] of integer,
+                Neff : integer {1 <= Neff <= NMax} >
+T1 : TabInt
+```
+Cara akses : untuk akses array `T1` yang merupakan array sebagian dari TabInt, `T1.Tab[i]` akses elemen ke-i dari `T1.Tab`, `T1.Neff` akses nilai efektif
 
 ## Analisis Kasus
 
@@ -277,13 +284,13 @@ i traversal [0..8]
 # SKEMA STANDAR
 
 Daftar Isi :
-*[Bag. 1](#bagian-1--validasi-pengulangan-pemrosesan-sekuensial)
-    *[Skema Validasi 1](#skema-validasi-1)
-    *[Skema Pengulangan](#skema-pengulangan)
-    *[Skema Pemrosesan Sekuensial](#skema-pemrosesan-sekuensial)
-*[Bag. 2](#bagian-2--skema-traversal-pencarian-nilai-ekstrim-dan-searching-pada-array)
-*[Bag. 3]()
-*[Bag. 4]()
+* [Bag. 1](#bagian-1--validasi-pengulangan-pemrosesan-sekuensial)
+    * [Skema Validasi 1](#skema-validasi-1)
+    * [Skema Pengulangan](#skema-pengulangan)
+    * [Skema Pemrosesan Sekuensial](#skema-pemrosesan-sekuensial)
+* [Bag. 2](#bagian-2--skema-traversal-pencarian-nilai-ekstrim-dan-searching-pada-array)
+* [Bag. 3]()
+* [Bag. 4]()
 
 ## Bagian 1 : Validasi, Pengulangan, Pemrosesan Sekuensial
 
@@ -418,6 +425,8 @@ Note :
 
 
 ## Bagian 2 : Skema Traversal, Pencarian Nilai Ekstrim, dan Searching pada Array    
+
+###  
 
 
 
