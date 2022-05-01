@@ -467,199 +467,199 @@ Note : Digunakan model akses sekuensial tanpa mark.
         Terminasi
 
 * Contoh Proses Mundur
-```
-Program TulisTABELMundur
-{Menuliskan isi tabel dari indeks terbesar ke terkecil}
+    ```
+    Program TulisTABELMundur
+    {Menuliskan isi tabel dari indeks terbesar ke terkecil}
 
-KAMUS
-    constant NMin : integer = 1
-    constant NMax : integer = 100
+    KAMUS
+        constant NMin : integer = 1
+        constant NMax : integer = 100
 
-    T : array[NMin..NMax] of integer
-    i : integer[NMin..NMax]
-    N : integer {ukuran efektif tabel yang terisi 1..N}
+        T : array[NMin..NMax] of integer
+        i : integer[NMin..NMax]
+        N : integer {ukuran efektif tabel yang terisi 1..N}
 
-ALGORITMA
-    {Anggap T[NMin..N] sudah terisi}
-    i traversal [N..NMin]
-        output (T[i])
-```
+    ALGORITMA
+        {Anggap T[NMin..N] sudah terisi}
+        i traversal [N..NMin]
+            output (T[i])
+    ```
 
 ### Skema Pengisian Array
 * Jumlah Elemen diketahui
-```
-KAMUS
-    constant NMax : integer  = 1
-    constant NMin : integer  = 100
+    ```
+    KAMUS
+        constant NMax : integer  = 1
+        constant NMin : integer  = 100
 
-    i : integer[NMin..NMax]
-    T : array[NMin..NMax] of integer
-    N : integer
+        i : integer[NMin..NMax]
+        T : array[NMin..NMax] of integer
+        N : integer
 
-ALGORITMA
-    {inisialisasi}
-    repeat
-        input(N)
-    until (N >= 1) and (N <= 100>)
-    i traversal (NMin..N)
-        input(T[i])
-```
+    ALGORITMA
+        {inisialisasi}
+        repeat
+            input(N)
+        until (N >= 1) and (N <= 100>)
+        i traversal (NMin..N)
+            input(T[i])
+    ```
 
 * Jumlah Elemen tidak diketahui
-```
-KAMUS
-    constant NMin : integer = 1
-    constant NMax : integer = 100
+    ```
+    KAMUS
+        constant NMin : integer = 1
+        constant NMax : integer = 100
 
-    i : integer[NMin..NMax]
-    T : array[NMin..NMax] of integer
-    N : integer
-    x : integer {nilai penyimpanan sementara}
+        i : integer[NMin..NMax]
+        T : array[NMin..NMax] of integer
+        N : integer
+        x : integer {nilai penyimpanan sementara}
 
-ALGORITMA
-    i <- NMin
-    input (x)
-
-    while (x != 9999) and (i <= NMax) do
-        T[i] <- x
-        i <- i + 1
+    ALGORITMA
+        i <- NMin
         input (x)
 
-    if (i > NMax) then
-        output ("Tabel sudah penuh")
-    N <- i-1
-```
+        while (x != 9999) and (i <= NMax) do
+            T[i] <- x
+            i <- i + 1
+            input (x)
+
+        if (i > NMax) then
+            output ("Tabel sudah penuh")
+        N <- i-1
+    ```
 
 ### Skema Pencarian Nilai Ekstrim pada Array
 
-```
-KAMUS UMUM
-    constant NMax : integer = 100
-    type TabInt : array [1..NMax] of integer
+    ```
+    KAMUS UMUM
+        constant NMax : integer = 100
+        type TabInt : array [1..NMax] of integer
 
-    T : TabInt
-    N : integer
-```
+        T : TabInt
+        N : integer
+    ```
 
 * Mengembalikan nilai maksimum
-```
-procedure MAX (input T : TabInt, input N : integer, output MAX : integer)
-{ I.S. array T tidak kosong, N > 0} 
-{ F.S. Menghasilkan nilai maksimum dari array T }
+    ```
+    procedure MAX (input T : TabInt, input N : integer, output MAX : integer)
+    { I.S. array T tidak kosong, N > 0} 
+    { F.S. Menghasilkan nilai maksimum dari array T }
 
-KAMUS LOKAL
-    i : integer
+    KAMUS LOKAL
+        i : integer
 
-ALGORITMA
-    MAX <- T[1]
-    i <- 2
-    while (i <= N) do
-        if (MAX < T[i]) then
-            MAX <- T[i]
-        i <- i + 1  
-    Terminasi
-```
+    ALGORITMA
+        MAX <- T[1]
+        i <- 2
+        while (i <= N) do
+            if (MAX < T[i]) then
+                MAX <- T[i]
+            i <- i + 1  
+        Terminasi
+    ```
 
 * Mengembalikan indeks nilai maksimum
-```
-procedure IMAX (input T : TabInt, input N : integer, output IMax : integer)
-{ I.S. array T tidak kosong, N > 0} 
-{ F.S. Menghasilkan nilai maksimum dari array T }
+    ```
+    procedure IMAX (input T : TabInt, input N : integer, output IMax : integer)
+    { I.S. array T tidak kosong, N > 0} 
+    { F.S. Menghasilkan nilai maksimum dari array T }
 
-KAMUS LOKAL
-    i : integer
+    KAMUS LOKAL
+        i : integer
 
-ALGORITMA
-    IMax <- i
-    i <- 2
-    while (i <= N) do
-        if (T[IMax] < T[i]) then
-            IMax <- i
-        i <- i+1
-    Terminasi
-```
+    ALGORITMA
+        IMax <- i
+        i <- 2
+        while (i <= N) do
+            if (T[IMax] < T[i]) then
+                IMax <- i
+            i <- i+1
+        Terminasi
+    ```
 
 ### Skema Sekuensial *Search* pada Array
-```
-KASUS UMUM
-    constant NMax : integer = 100
-    type TabInt : array [1..NMax] of integer
-    
-    T : TabInt
-    N : integer
-```
+    ```
+    KASUS UMUM
+        constant NMax : integer = 100
+        type TabInt : array [1..NMax] of integer
+        
+        T : TabInt
+        N : integer
+    ```
 
 * *Searching* tanpa Boolean
-```
-procedure SEQSearch (input T : TabInt, input N : Integer, input X : integer, output IX : integer)
-{ I.S. T tidak boleh kosong, N > 0, biar T[i] tidak error }
+    ```
+    procedure SEQSearch (input T : TabInt, input N : Integer, input X : integer, output IX : integer)
+    { I.S. T tidak boleh kosong, N > 0, biar T[i] tidak error }
 
-KAMUS LOKAL
-    i : integer
+    KAMUS LOKAL
+        i : integer
 
-ALGORITMA
-i <- 1
-while (i < N) and (T[i] != X) do
-    i <- i + 1
-if (T[i] = X) then
-    IX <- i
-else
-    IX <- 0
-```
-
-* Searching dengan Boolean
-```
-procedure SEQSearchX (input T : TabInt, input N : integer, input X : integer, output IX : integer)
-{ I.S. T boleh kosong karena tidak ada pemeriksaan terhadap T[i]}
-
-KAMUS LOKAL
-    i : integer
-    Found : boolean
-
-ALGORITMA
-    Found <- false
+    ALGORITMA
     i <- 1
-    while (i <= N) and (not Found) do
-        if (T[i] = X) then
-            Found <- true
-        else
-            i <- i+1
-    if (Found) then
-        IX <- i
-    else   
-        IX <- 0
-```
-
-* Searching pada array terurut
-```
-procedure SEQSearchSorted (input T : TabInt, input N : integer, input X : integer, output IX : integer)
-
-KAMUS LOKAL
-    i : integer
-
-ALGORITMA
-    while (i < N) and (T[i] < X)
-        i <- 1
+    while (i < N) and (T[i] != X) do
+        i <- i + 1
     if (T[i] = X) then
         IX <- i
     else
         IX <- 0
-```
+    ```
+
+* Searching dengan Boolean
+    ```
+    procedure SEQSearchX (input T : TabInt, input N : integer, input X : integer, output IX : integer)
+    { I.S. T boleh kosong karena tidak ada pemeriksaan terhadap T[i]}
+
+    KAMUS LOKAL
+        i : integer
+        Found : boolean
+
+    ALGORITMA
+        Found <- false
+        i <- 1
+        while (i <= N) and (not Found) do
+            if (T[i] = X) then
+                Found <- true
+            else
+                i <- i+1
+        if (Found) then
+            IX <- i
+        else   
+            IX <- 0
+    ```
+
+* Searching pada array terurut
+    ```
+    procedure SEQSearchSorted (input T : TabInt, input N : integer, input X : integer, output IX : integer)
+
+    KAMUS LOKAL
+        i : integer
+
+    ALGORITMA
+        while (i < N) and (T[i] < X)
+            i <- 1
+        if (T[i] = X) then
+            IX <- i
+        else
+            IX <- 0
+    ```
 
 * Searching dengan sentinel
 Note : sentinel adalah elemen fiktif yang sengaja dipasang pada akhir array
-```
-procedure SEQSearchwithSent (input T : TabInt, input N : integer, input X : integer, output IX : integer)
+    ```
+    procedure SEQSearchwithSent (input T : TabInt, input N : integer, input X : integer, output IX : integer)
 
-KAMUS LOKAL
-    i : integer[1..N+1]
+    KAMUS LOKAL
+        i : integer[1..N+1]
 
-ALGORITMA
-    T[N+1] = X
-    while (T[i] != X) do
-        i <- i + 1
-    if i < N+1 then
-        IX <- i
-    else
-        IX <- 0
-```
+    ALGORITMA
+        T[N+1] = X
+        while (T[i] != X) do
+            i <- i + 1
+        if i < N+1 then
+            IX <- i
+        else
+            IX <- 0
+    ```
