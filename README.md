@@ -289,6 +289,10 @@ Daftar Isi :
     * [Skema Pengulangan](#skema-pengulangan)
     * [Skema Pemrosesan Sekuensial](#skema-pemrosesan-sekuensial)
 * [Bag. 2](#bagian-2--skema-traversal-pencarian-nilai-ekstrim-dan-searching-pada-array)
+    * [Skema Pemrosesan Sekuensial pada array](#skema-pemrosesan-sekuensial-pada-array)
+    * [Skema Pengisian array](#skema-pengisian-array)
+    * [Skema Pencarian Nilai Ekstrim](#skema-pencarian-nilai-ekstrim-pada-array)
+    * [Skema Sekuensial *Search* pada array](#skema-sekuensial-search-pada-array)
 * [Bag. 3]()
 * [Bag. 4]()
 
@@ -576,3 +580,86 @@ ALGORITMA
 ```
 
 ### Skema Sekuensial *Search* pada Array
+```
+KASUS UMUM
+    constant NMax : integer = 100
+    type TabInt : array [1..NMax] of integer
+    
+    T : TabInt
+    N : integer
+```
+
+* *Searching* tanpa Boolean
+```
+procedure SEQSearch (input T : TabInt, input N : Integer, input X : integer, output IX : integer)
+{ I.S. T tidak boleh kosong, N > 0, biar T[i] tidak error }
+
+KAMUS LOKAL
+    i : integer
+
+ALGORITMA
+i <- 1
+while (i < N) and (T[i] != X) do
+    i <- i + 1
+if (T[i] = X) then
+    IX <- i
+else
+    IX <- 0
+```
+
+* Searching dengan Boolean
+```
+procedure SEQSearchX (input T : TabInt, input N : integer, input X : integer, output IX : integer)
+{ I.S. T boleh kosong karena tidak ada pemeriksaan terhadap T[i]}
+
+KAMUS LOKAL
+    i : integer
+    Found : boolean
+
+ALGORITMA
+    Found <- false
+    i <- 1
+    while (i <= N) and (not Found) do
+        if (T[i] = X) then
+            Found <- true
+        else
+            i <- i+1
+    if (Found) then
+        IX <- i
+    else   
+        IX <- 0
+```
+
+* Searching pada array terurut
+```
+procedure SEQSearchSorted (input T : TabInt, input N : integer, input X : integer, output IX : integer)
+
+KAMUS LOKAL
+    i : integer
+
+ALGORITMA
+    while (i < N) and (T[i] < X)
+        i <- 1
+    if (T[i] = X) then
+        IX <- i
+    else
+        IX <- 0
+```
+
+* Searching dengan sentinel
+Note : sentinel adalah elemen fiktif yang sengaja dipasang pada akhir array
+```
+procedure SEQSearchwithSent (input T : TabInt, input N : integer, input X : integer, output IX : integer)
+
+KAMUS LOKAL
+    i : integer[1..N+1]
+
+ALGORITMA
+    T[N+1] = X
+    while (T[i] != X) do
+        i <- i + 1
+    if i < N+1 then
+        IX <- i
+    else
+        IX <- 0
+```
