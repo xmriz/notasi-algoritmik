@@ -146,10 +146,10 @@ Cara akses: `NamaArray[idx]` dengan `idx` harus di dalam range definisi array te
 
 ```
 { Array yang terisi sebagian }
-constant NMax : integer = 100
+constant NMax : integer = 100 {NMax biar gampang ubahnya}
 type TabInt : <Tab : array [1..NMax] of integer,
                 Neff : integer {1 <= Neff <= NMax} >
-T1 : TabInt
+T1 : TabInt {T1.Tab[i] untuk akses elemen ke-i dari T1.Tab, T1.Neff untuk akses nilai efektif}
 ```
 Cara akses : untuk akses array `T1` yang merupakan array sebagian dari TabInt, `T1.Tab[i]` akses elemen ke-i dari `T1.Tab`, `T1.Neff` akses nilai efektif
 
@@ -365,6 +365,7 @@ Note :
 * Current_ELmt : Elemen yang siap diproses
 * Next_Elmt : Elemen yang diakses setelah Current_Elmt
 * EOP : Tanda akhir proses, Bernilai True jika,
+
     * Dengan Mark : elemen terakhir adalah elemen fiktif (bukan anggota elemen yang diproses)
     ex :
         ```
@@ -394,6 +395,7 @@ Note :
                 until (EOP)
                 Terminasi
         ```
+
     * Tanpa Mark : elemen terakhir bagian dari elemen yang diproses (tidak mungkin ada kasus kosong)
     ex :
         ```
@@ -426,7 +428,151 @@ Note :
 
 ## Bagian 2 : Skema Traversal, Pencarian Nilai Ekstrim, dan Searching pada Array    
 
-###  
+### Skema Pemrosesan Sekuensial pada Array
+Note : Digunakan model akses sekuensial tanpa mark.
+* Proses Maju
+    ```
+    KAMUS UMUM PEMROSESAN ARRAY
+        constant NMin : integer = 1
+        constant NMax : integer = 100
+        type 
+            Eltype : ... {type terdefinisi}
+        {Variabel}
+            i : integer{NMin..NMax}
+            T : array[NMin..NMax] of Eltype
+        { Deklarasi Prosedur }
+            procedure Inisialisasi {Persiapan sebelum pemrosesan}
+            procedure Proses (input X : Eltype) {Proses current_elmt}
+            procedure Terminasi {Penutupan setelah pemrosesan selesai}
+    ```
+    ```
+    { SKEMA PEMROSESAN ARRAY T untuk indekse [NMin..NMax] }
+    { dengan iterate-stop }
+        Inisialisasi
+        iterate
+            Proses(T[i])
+        stop (i = NMax)
+            i <- i + 1
+        Terminasi
+    ```
+    ```
+    { SKEMA PEMROSESAN ARRAY T untuk indekse [NMin..NMax] }
+    { dengan traversal }
+        i traversal[NMin..NMax]
+            Proses(T[i])
+        Terminasi
 
+* Contoh Proses Mundur
+```
+Program TulisTABELMundur
+{Menuliskan isi tabel dari indeks terbesar ke terkecil}
 
+KAMUS
+    constant NMin : integer = 1
+    constant NMax : integer = 100
 
+    T : array[NMin..NMax] of integer
+    i : integer[NMin..NMax]
+    N : integer {ukuran efektif tabel yang terisi 1..N}
+
+ALGORITMA
+    {Anggap T[NMin..N] sudah terisi}
+    i traversal [N..NMin]
+        output (T[i])
+```
+
+### Skema Pengisian Array
+* Jumlah Elemen diketahui
+```
+KAMUS
+    constant NMax : integer  = 1
+    constant NMin : integer  = 100
+
+    i : integer[NMin..NMax]
+    T : array[NMin..NMax] of integer
+    N : integer
+
+ALGORITMA
+    {inisialisasi}
+    repeat
+        input(N)
+    until (N >= 1) and (N <= 100>)
+    i traversal (NMin..N)
+        input(T[i])
+```
+
+* Jumlah Elemen tidak diketahui
+```
+KAMUS
+    constant NMin : integer = 1
+    constant NMax : integer = 100
+
+    i : integer[NMin..NMax]
+    T : array[NMin..NMax] of integer
+    N : integer
+    x : integer {nilai penyimpanan sementara}
+
+ALGORITMA
+    i <- NMin
+    input (x)
+
+    while (x != 9999) and (i <= NMax) do
+        T[i] <- x
+        i <- i + 1
+        input (x)
+
+    if (i > NMax) then
+        output ("Tabel sudah penuh")
+    N <- i-1
+```
+
+### Skema Pencarian Nilai Ekstrim pada Array
+
+```
+KAMUS UMUM
+    constant NMax : integer = 100
+    type TabInt : array [1..NMax] of integer
+
+    T : TabInt
+    N : integer
+```
+
+* Mengembalikan nilai maksimum
+```
+procedure MAX (input T : TabInt, input N : integer, output MAX : integer)
+{ I.S. array T tidak kosong, N > 0} 
+{ F.S. Menghasilkan nilai maksimum dari array T }
+
+KAMUS LOKAL
+    i : integer
+
+ALGORITMA
+    MAX <- T[1]
+    i <- 2
+    while (i <= N) do
+        if (MAX < T[i]) then
+            MAX <- T[i]
+        i <- i + 1  
+    Terminasi
+```
+
+* Mengembalikan indeks nilai maksimum
+```
+procedure IMAX (input T : TabInt, input N : integer, output IMax : integer)
+{ I.S. array T tidak kosong, N > 0} 
+{ F.S. Menghasilkan nilai maksimum dari array T }
+
+KAMUS LOKAL
+    i : integer
+
+ALGORITMA
+    IMax <- i
+    i <- 2
+    while (i <= N) do
+        if (T[IMax] < T[i]) then
+            IMax <- i
+        i <- i+1
+    Terminasi
+```
+
+### Skema Sekuensial *Search* pada Array
