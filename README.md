@@ -646,8 +646,7 @@ Note : Digunakan model akses sekuensial tanpa mark.
             IX <- 0
     ```
 
-* Searching dengan sentinel
-Note : sentinel adalah elemen fiktif yang sengaja dipasang pada akhir array
+* Searching dengan sentinel (Note : sentinel adalah elemen fiktif yang sengaja dipasang pada akhir array)
     ```
     procedure SEQSearchwithSent (input T : TabInt, input N : integer, input X : integer, output IX : integer)
 
@@ -663,3 +662,251 @@ Note : sentinel adalah elemen fiktif yang sengaja dipasang pada akhir array
         else
             IX <- 0
     ```
+
+
+## Bagian 3 : Skema Sorting pada Array
+    ```
+    KAMUS UMUM
+        constant NMax : integer = 100
+        type TabInt : array [1..NMax] of integer
+
+        N : integer
+        T : TabInt
+    ```
+
+### Counting Sort
+Note : dipakai jika diketahui nilai minmum dan maksimum dari array
+```
+procedure CountSORT (input/output T : TabInt, input N : integer)
+
+KAMUS LOKAL
+    TabCount : array [ValMin..ValMax] of integer
+    i, j : integer
+    K : integer
+
+ALGORITMA
+    if (N > 1) then
+        { inisialisasi TabCount }
+        i traversal [ValMin..ValMax]
+            TabCount[i] <- 0
+        { Counting }
+        i traversal [1..N]
+            TabCount[T[i]] <- TabCount[T[i]] + 1
+        { pengisian kembali }
+        K <- 0
+        i traversal [ValMin..ValMax]
+            if (TabCount != 0) then
+                j traversal [1..TabCount[i]]
+                    K <- K+1
+                    T[K] <- i
+```
+
+### Selection Sort
+Note : mengurutkan array [1..N] terurut mengecil degan maksmimum suksesif
+```
+    procedure (input/output T : TabInt, input N : integer)
+
+    KAMUS LOKAL
+        i : integer 
+        Pass : integer
+        Temp : integer {memorisasi untuk penukaran T[pass] dan T[IMax]}
+        IMax : integer {indeks maks untuk T[Pass..N]}
+
+    ALGORITMA
+        if (N>1) then
+            Pass traversal (i..N-1)
+                {Tentukan nilai maksmimum dari T[Pass..N]}
+                IMax <- Pass
+                i traversal [Pass+1..N]
+                    if T[IMax] < T[i] then
+                        IMax <- i
+                { Tukar nilai T[IMax] dengan T[Pass] }
+                Temp <- T[IMax]
+                T[IMax] <- T[Pass]
+                T[Pass] <- Temp
+```
+
+### Insertion Sort
+```
+procedure InsertionSORT (input/output T : TabInt, input N : integer)
+{ mengurutkan tabel degan terurut membesar }
+
+KAMUS LOKAL
+    i : integer
+    Pass : integer
+    Temp : integer
+
+ALGORITMA
+    if (N>1) then
+        {T[1] adalah elemen yang sudah terurut}
+        Pass traversal [2..N]
+            Temp <- T[Pass]
+            {bandingkan nilai Temp dengan elemen sebelumnya}
+            i <- Pass-1
+            while (Temp < T[i]) and (i > 1) do
+                T[i+1] <- T[i] {geser}
+                i <- i-1
+            if (Temp >= T[i]) then
+                T[i+1] <- Temp
+            else
+                T[i+1] <- T[i]
+                T[i] <- Temp
+```
+
+### Bubble Sort
+* Versi Asli
+    ```
+    procedure BubbleShort
+
+    KAMUS LOKAL
+        i, K : integer
+        Pass : integer
+        Temp : integer
+
+    ALGORITMA
+        if (N > 1 ) then
+            Pass traversal [1..N-1]
+                K traversal [N..Pass+1]
+                    if (T[K] < T[K-1]) then
+                        Temp <- T[K]
+                        T[K] <- T[K-1]
+                        T[K-1] <- Temp
+    ```
+
+* Versi Optimum : akan berhenti jika sudah terurut/tidak terjadi penuakaran sama sekali
+    ```
+    procedure BubbleSortPlus (input/ouput T : TabInt, input N : integer)
+
+    KAMUS LOKAL
+        i : integer
+        Pass : integer
+        Temp : integer
+        Tukar : boolean
+
+    ALGORITMA
+        if (N > 1) then
+            Pass <- 1
+            Tukar <- true
+            while (Pass <= N-1) and (Tukar) do
+                Tukar <- false
+                K traversal [N..Pass+1]
+                    if (T[k] < T[K-1]) then
+                        Temp <- T[K]
+                        T[K] <- T[K-1]
+                        T[K-1] <- Temp
+                        Tukar <- true
+                Pass <- Pass + 1
+    ```
+
+
+
+## Bagian 4 : Pemrosesan File Sekuensial
+
+### Primitif Pemrosesan File
+* Kamus
+    ```
+    type rekaman : < var1 : datatype
+                     var2 : datatype
+                     ... >
+    NamaArsip : SEQFILE of
+        (*) nama_rek : rekaman
+        (1) mark
+
+    ```
+
+* Assign Nama Fisik (nama file di harddisk) ke nama lojik (variabel dalam program)
+    ```
+    assign(namaArsip,namaFisik)
+    ```
+
+* Membuka File
+    * `open(namaArsip, nama_rek)` : mempersiapkan file untuk dibaca (read-only)
+    * `rewrite(namaArsip)` : mempersiapkan file untuk ditulis
+
+* Membaca File
+    ```
+    read(namaArsip,nama_rek)
+    ```
+
+* Menulis File
+    ```
+    write(namaArsip, nama_rek_baru)
+    ```
+
+* Menutup File : harus berpasangan dengan open/rewrite
+    ```
+    close(namaArsip)
+    ```
+
+* EOP : tercapainya mark
+
+### Pemrosesan File secara Sekuensial
+* Skema Pembacaan File
+    ```
+    KAMUS UMUM
+        f : SEQFILE of
+            (*) cc : character
+            (1) '.'
+    ```
+    * Repeat-Until
+        ```
+        ALGORITMA
+            assign(f, "dataku.txt")
+            open(f,cc) {First_ELmt}
+            if (cc = '.') then
+                output ("File kosong")
+            else
+                repeat
+                    output(CC) {proses_Current_Elmt}
+                    read(f,cc) {Next_Elmt}
+                until (cc = '.')
+            close (f)
+        ```
+    * while-do
+        ```
+        ALGORITMA
+            assign(f, "dataku.txt")
+            open(f,cc) 
+            while (cc != '.') do
+                output (cc)
+                read (f,cc)
+            close (f)
+        ```
+
+* Skema Penulisan File
+    ```
+    KAMUS UMUM
+        f : SEQFILE of
+            (*) x : integer
+            (1) 9999
+    ```
+    * While-Do
+        ```
+        ALGORITMA
+            assign(f,x)
+            rewrite(f)
+            input(x) {First_ELmt}
+            while (x != 9999) do
+                write(f,x) {Proses_Current_ELmt}
+                input(x) {Next_elmt}
+            write (f, 9999) 
+            close (f)
+        ```
+    * Repeat-Until
+        ```
+        ALGORITMA
+            assign(f,x)
+            rewrite(f)
+            input(x)
+            if (x = 9999) then
+                ouput("File kosong")
+            else
+                repeat
+                    write(f,x)
+                    input(x)
+                until (x = 9999)
+            write(f,9999)
+            close(f)
+        ```
+
+        
