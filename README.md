@@ -909,4 +909,107 @@ ALGORITMA
             close(f)
         ```
 
-        
+Contoh : 
+* Menghitung nilai rata-rata
+    ```
+    Program NilaiRataRata
+    { Membaca data dalam MHS.dat da menghasilkan nilai rata-rata dari semua mahasiswa }
+
+    KAMUS
+        type rekamanMHS : <NIM : string, nilai : integer>
+        ArsipMhs : SEQFILE of
+            (*) RekMhs : rekamanMHS
+            (1) <"99999999", 99>
+        SumNil : integer
+        JumMHS : integer
+
+    ALGORITMA
+        assign(Arsip,"MHS.dat")
+        open(ArsipMHS,RekMHS)
+        if (RekMHS.NIM = "99999999") and (RekMHS.nilai = 99) then
+            output("Arsip kosong")
+        else
+            SumNil <- 0
+            JumMHS <- 0
+            repeat
+                SumNil <- SumNil + RekMHS.Nilai
+                JumMHS <- JumMHS + 1
+                read(ArsipMHS, RekMHS)
+            until (RekMHS.NIM = "99999999") and (RekMHS.nilai = 99)
+            output ("Rata-rata = " (SumNil/JumMHS))
+        close (ArsipMHS)
+    ```
+
+* Menyalin isi file ke array
+    ```
+    Program SalinKeArray
+
+    KAMUS
+        type rekamanMHS : <NIM : string, nilai : integer>
+        ArsipMHS : SEQFILE of
+            (*) RekMHS : rekamanMHS
+            (1) <"99999999", 99>
+        TabelMHS : array [1..100] of rekamanMHS
+        JumMHS : integer
+    
+    ALGORITMA
+        assign(ArsipMHS, MHS.dat)
+        open(ArsipMHS, RekMHS)
+        if (RekMHS.NIM = "99999999") and (RekMHS.nilai = 99) then
+            output("Arsip kosong")
+        else
+            JumMHS <- 1 
+            repeat
+                TabelMHS[JumMHS].NIM <- RekMHS.NIM
+                TabelMHS[JumMHS].nilai <- RekMHS.nilai
+                JumMHS <- JumMHS + 1
+                read(ArsipMHS, rekMHS)
+            until (RekMHS.NIM = "99999999") and (RekMHS.nilai = 99)
+            JumMHS <- JumMHS - 1 {penyesuaian JumMHS}
+        close (ArsipMHS)
+    ```
+
+* Menyalin isi Array ke File
+    * Repeat-Until
+        ```
+        Program SalinKeFile
+
+        KAMUS
+            type rekamanMHS : <NIM : string, nilai : integer>
+            ArsipMHS : SEQFILE of
+                (*) RekMHS : rekamanMHS
+                (1) <"99999999", 99>
+            TabelMHS : array [1..100] of rekamanMHS
+            JumMHS : integer
+
+        ALGORITMA
+            { diasumsikan sudah ada bagian program yang mengisi TabelMHS dan JumMHS}
+            assign(ArsipMHS, MHS.dat)
+            rewrite(ArsipMHS)
+            if (JumMHS = 0) then
+                output ("Tabel Kosong")
+            else
+                i <- 1
+                repeat
+                    RekMHS.NIM <- TabelMHS[i].NIM
+                    RekMHS.nilai <- TabelMHS[i].nilai
+                    write(ArsipMHS, RekMHS)
+                    i <- i + 1
+                until (i > JumMHS)
+            write (ArsipMHS, markMHS)
+            close (ArsipMHS)
+        ```
+    * While-Do
+        ```
+        ...
+        i <- 1
+        while (i <= JumMHS) do
+            RekMHS.NIM <- TabelMHS[i].NIM
+            RekMHS.nilai <- TabelMHS[i].nilai
+            write(ArsipMHS, RekMHS)
+            i <- i+1
+        write(ArsipMHS, markMHS)
+        ...
+        ```
+
+### Skema Konsolidasi File
