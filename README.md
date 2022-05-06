@@ -1013,3 +1013,131 @@ Contoh :
         ```
 
 ### Skema Konsolidasi File
+Note :
+```
+{Proses-proses}
+    procedure Inisialisasi_Seluruh_Categ; {Inisialiasi global}
+    procedure Terminasi_Seluruh_Categ; { Terminasi global}
+    procedure Kasus_Kosong; {Penanganan kasus kosong}
+    procedure Init_Categ; {Inisialiasi untuk 1 kategori}
+    procedure Proses_Current_Categ; {Proses sebuah elemen dalam 1 kategori}
+    procedure Terminasi_Categ; {Terminasi sebuah kategori}
+    function EOP (rek : rekaman) -> boolean {true jika rek = mark}
+    function separator (K : keytype) -> boolean {true jika K adalah separator}
+```
+* Tanpa Separator
+    * Tanpa Penanganan Kasus Kosong
+        ```
+        SKEMA KONSOLIDASI Tanpa Separator
+        { Input : sebuah arsip sekuensial, terurut}
+        { Proses : proses setiap kategori adalah menghitung nilai rata-rata setiap mahasiswa}
+        { Output : NIM dan Nilai rata-rata setiap mahasiswa}
+
+        KAMUS
+            type keytype : string { kunci rekaman }
+            type valtype : integer { harga rekaman }
+            type rekaman : < NIM : keytype, 
+                             Nilai : valtype >
+            constant mark : rekaman = <"99999999",0>
+            ArsipMHS : SEQFILE of
+                (*) RekMHS : rekaman
+                (1) mark
+            Current_NIM : keytype { Kategori yang sedang diproses}
+            SUMNil : integer
+            NKuliah : integer { banyaknya harga dari setiap kunci }
+
+        ALGORITMA
+            assign(ArsipMhs, "dataMhs.dat")
+            open(ArsipMhs, RekMHS)
+            while RekMhs.NIM != "99999999") do
+                SumNIl <- 0; Nkuliah <- 0
+                Current_NIM <- RekMHS.NIM
+                repeat
+                    SumNil <- SumNil + RekMHS.Nilai
+                    NKuliah <- NKuliah + 1
+                    read(ArsipMhs, RekMHS)
+                until (Current_NIM != RekMHS.NIM)
+                output(Current_NIM, SumNil/NKuliah)
+            close(ArsipMhs)
+        ```
+    * Dengan Penanganan Kasus Kosong
+        ```
+        SKEMA KONSOLIDASI Tanpa Separator
+        { Input : sebuah arsip sekuensial, terurut}
+        { Proses : proses setiap kategori adalah menghitung nilai rata-rata setiap mahasiswa}
+        { Output : NIM dan Nilai rata-rata setiap mahasiswa}
+
+        KAMUS
+            type keytype : string { kunci rekaman }
+            type valtype : integer { harga rekaman }
+            type rekaman : < NIM : keytype, 
+                             Nilai : valtype >
+            constant mark : rekaman = <"99999999",0>
+            ArsipMHS : SEQFILE of
+                (*) RekMHS : rekaman
+                (1) mark
+            Current_NIM : keytype { Kategori yang sedang diproses}
+            SUMNil : integer
+            NKuliah : integer { banyaknya harga dari setiap kunci }
+
+        ALGORITMA
+            assign(ArsipMhs, "dataMhs.dat")
+            open(ArsipMhs, RekMHS)
+            if (RekMhs.NIM = "99999999") then
+                output("Arsip Kosong")
+            else
+                repeat
+                    SumNIl <- 0; Nkuliah <- 0
+                    Current_NIM <- RekMHS.NIM
+                    repeat
+                        SumNil <- SumNil + RekMHS.Nilai
+                        NKuliah <- NKuliah + 1
+                        read(ArsipMhs, RekMHS)
+                    until (Current_NIM != RekMHS.NIM)
+                    output(Current_NIM, SumNil/NKuliah)
+                until (RekMhs.NIM = "99999999")
+            close(ArsipMhs)
+        ```
+
+* Dengan Separator
+<br> Note : separator bisa lebih dari 1 </br>
+
+```
+Program HitungPanjangKata
+{ Input : sebuah arsip sekuensial berisi teks }
+{ Proses : menghitung kata terpanjang pada arsip sekuensial }
+{ Output : panjang kata maksimum }
+
+KAMUS
+    type keytype : character {valtype gak ada, soalnya isinya 1 saja}
+    type rekaman : keytype
+    constant mark : character = "."
+    constant blank : character = " " {sebagai separator}
+    ArsipIn : SEQFILE of 
+        (*) CC : rekaman
+        (1) mark
+    PanjangKata : integer {Panjang kata current_categ}
+    MaxLength : integer {Panjang kata maksimum}
+
+ALGORITMA
+    assign(ArsipIn, "data.txt")
+    open(ArsipIn, RekIn)
+    while (CC != mark) and (CC = blank) do
+        read(ArsipIn, CC)
+    if (CC = mark) then
+        output("Arsip Kosong")
+    else
+        MaxLength <- 0
+        repeat
+            PanjangKata <- 0
+            while (CC != mark) and (CC != blank) do
+                PanjangKata <- PanjangKata + 1
+                read(ArsipIn, CC)
+            if (MaxLength < PanjangKata) then
+                MaxLength <- PanjangKata
+            while (CC != mark) and (CC = blank) do
+                read(ArsipIn, CC)
+        until(CC = mark)
+        output("Panjang kata maksimum = ", MaxLength)
+    close(ArsipIn)
+```
