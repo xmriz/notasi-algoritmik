@@ -394,7 +394,7 @@ Note :
             Terminasi
         ``` 
         ```
-        SKEMA PEMROSESAN SEKUENSIAL TANPA MARK
+        SKEMA PEMROSESAN SEKUENSIAL DENGAN MARK
         { Dengan penanganan kasus kosong }
         SKEMA
             First_Elmt
