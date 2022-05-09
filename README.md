@@ -1141,3 +1141,95 @@ ALGORITMA
         output("Panjang kata maksimum = ", MaxLength)
     close(ArsipIn)
 ```
+
+### Skema Merging 2 File
+* Merging - AND
+    ```
+    Program Merging - AND
+    { Input : Dua arsip sekuensial }
+    { Proses : Menggabung kedua arsip menjadi arsip baru yang terurut }
+    { Output : Sequential file baru yang terurut }
+
+    KAMUS
+        type keytype : ...
+        type valtype : ...
+        type rekaman : < KeyIn : keytype 
+                         ValIn : valtype >
+        constant mark : rekaman = <...,...>
+        ArsipIn1 : SEQFILE of
+            (*) RekIn : rekaman
+            (1) mark
+        ArsipIn2 : SEQFILE of
+            (*) RekIn2 : rekaman
+            (1) mark
+        ArsipOut : SEQFILE of
+            (*) RekOut : rekaman
+            (1) mark
+    
+    ALGORITMA { ini tidak ada valtypenya }
+        assign (ArsipIn1, "data.txt")
+        open (ArsipIn1, RekIn1)
+        assign (ArsipIn2, "data.txt")
+        open (ArsipIn2, RekIn2)
+        assign (ArsipOut "data.txt")
+        open (ArsipOut, RekOut)
+        while (RekIn1.KeyIn != mark.KeyIn) and (RekIn2.KeyIn != mark) do
+            if (RekIn1.KeyIn <= RekIn2.KeyIn) then
+                write(ArsipOut, RekIn1)
+                read(ArsipIn1, RekIn1)
+            else
+                write(ArsipOut, RekIn2)
+                read(ArsipIn2, RekIn2)
+        {RekIn = mark }
+        while (RekIn1.KeyIn != mark) do
+            write(ArsipOut, RekIn1)
+            read(ArsipIn1, RekIn1)
+        while (RekIn2.KeyIn != mark) do
+            write(ArsipOut, RekIn2)
+            read(ArsipIn2, RekIn2)
+        close(ArsipIn1)
+        close(ArsipIn2)
+        close(ArsipOut)
+    ```
+
+* Merging - OR (Note : dipakai jika marknya paling besar diantara KeyIn)
+    ```
+    Program Merging - AND
+    { Input : Dua arsip sekuensial }
+    { Proses : Menggabung kedua arsip menjadi arsip baru yang terurut }
+    { Output : Sequential file baru yang terurut }
+
+    KAMUS
+        type keytype : ...
+        type valtype : ...
+        type rekaman : < KeyIn : keytype 
+                         ValIn : valtype >
+        constant mark : rekaman = <...,...>
+        ArsipIn1 : SEQFILE of
+            (*) RekIn : rekaman
+            (1) mark
+        ArsipIn2 : SEQFILE of
+            (*) RekIn2 : rekaman
+            (1) mark
+        ArsipOut : SEQFILE of
+            (*) RekOut : rekaman
+            (1) mark
+    
+    ALGORITMA
+        assign (ArsipIn1, "data.txt")
+        open (ArsipIn1, RekIn1)
+        assign (ArsipIn2, "data.txt")
+        open (ArsipIn2, RekIn2)
+        assign (ArsipOut "data.txt")
+        open (ArsipOut, RekOut)
+        while (RekIn1.KeyIn != mark) or (RekIn2.KeyIn != mark) do
+            if (RekIn1.KeyIn <= RekIn2.KeyIn) then
+                write(ArsipOut, RekIn1)
+                read(ArsipIn1, RekIn1)
+            else
+                write(ArsipOut, RekIn2)
+                read(ArsipIn2, RekIn2)
+        close(ArsipIn1)
+        close(ArsipIn2)
+        close(ArsipIn3)
+    ```
