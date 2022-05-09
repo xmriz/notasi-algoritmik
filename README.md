@@ -536,7 +536,7 @@ Note : Digunakan model akses sekuensial tanpa mark.
         {inisialisasi}
         repeat
             input(N)
-        until (N >= 1) and (N <= 100>)
+        until (N >= 1) and (N <= 100)
         i traversal (NMin..N)
             input(T[i])
     ```
@@ -606,7 +606,7 @@ Note : Digunakan model akses sekuensial tanpa mark.
         i : integer
 
     ALGORITMA
-        IMax <- i
+        IMax <- 1
         i <- 2
         while (i <= N) do
             if (T[IMax] < T[i]) then
