@@ -293,8 +293,16 @@ Daftar Isi :
     * [Skema Pengisian array](#skema-pengisian-array)
     * [Skema Pencarian Nilai Ekstrim](#skema-pencarian-nilai-ekstrim-pada-array)
     * [Skema Sekuensial *Search* pada array](#skema-sekuensial-search-pada-array)
-* [Bag. 3]()
-* [Bag. 4]()
+* [Bag. 3](#bagian-3--skema-sorting-pada-array)
+    * [Counting Sort](#counting-sort)
+    * [Selection Sort](#selection-sort)
+    * [Insertion Sort](#insertion-sort)
+    * [Bubble Sort](#bubble-sort)
+* [Bag. 4](#bagian-4--pemrosesan-file-sekuensial)
+    * [Primitif Pemrosesan File Sekuensial](#primitif-pemrosesan-file)
+    * [Proses File Sekuensial](#proses-file-secara-sekuensial)
+    * [Skema Konsolidasi File](#skema-konsolidasi-file)
+    * [Skema Merging 2 File](#skema-merging-2-file)
 
 ## Bagian 1 : Validasi, Pengulangan, Pemrosesan Sekuensial
 
@@ -840,7 +848,7 @@ ALGORITMA
 
 * EOP : tercapainya mark
 
-### Pemrosesan File secara Sekuensial
+### Proses File secara Sekuensial
 * Skema Pembacaan File
     ```
     KAMUS UMUM
