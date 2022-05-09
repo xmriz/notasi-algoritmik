@@ -1157,7 +1157,7 @@ KAMUS
 
 ALGORITMA
     assign(ArsipIn, "data.txt")
-    open(ArsipIn, RekIn)
+    open(ArsipIn, CC)
     while (CC != mark) and (CC = blank) do
         read(ArsipIn, CC)
     if (CC = mark) then
