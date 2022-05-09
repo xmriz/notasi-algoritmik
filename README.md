@@ -288,6 +288,7 @@ Daftar Isi :
     * [Skema Validasi 1](#skema-validasi-1)
     * [Skema Pengulangan](#skema-pengulangan)
     * [Skema Pemrosesan Sekuensial](#skema-pemrosesan-sekuensial)
+    * [Skema Validasi 2](#skema-validasi-2)
 * [Bag. 2](#bagian-2--skema-traversal-pencarian-nilai-ekstrim-dan-searching-pada-array)
     * [Skema Pemrosesan Sekuensial pada array](#skema-pemrosesan-sekuensial-pada-array)
     * [Skema Pengisian array](#skema-pengisian-array)
@@ -436,6 +437,33 @@ Note :
             until (EOP)
             Terminasi
         ```
+
+### Skema Validasi 2
+* dengan pesan kesalahan
+    ```
+    SKEMA VALIDASI MASUKAN
+    { Data masukan duvalidasi shg didapatkan data yang valid }
+    { Proses tanpa mark, dengan iterate-stop }
+    { Jika data tidak valid, diberikan pesan kesalahan }
+    SKEMA
+        iterate
+            input(<data>)
+        stop(<data_valid>)
+            <pesan_kesalahan>
+    <proses_data_valid>
+    ```
+* tanpa pesan kesalahan
+    ```
+    SKEMA VALIDASI MASUKAN
+    { Data masukan duvalidasi shg didapatkan data yang valid }
+    { Proses tanpa mark, dengan repeat-until }
+    { Jika data tidak valid, diberikan pesan kesalahan }
+    SKEMA
+        repeat
+            input(<data>)
+        until (<data_valid>)
+    <proses_data_valid>
+    ```
 
 
 ## Bagian 2 : Skema Traversal, Pencarian Nilai Ekstrim, dan Searching pada Array    
