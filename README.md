@@ -1269,3 +1269,6 @@ ALGORITMA
         close(ArsipIn2)
         close(ArsipIn3)
     ```
+
+
+------FINISH------
