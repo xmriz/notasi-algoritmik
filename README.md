@@ -750,7 +750,7 @@ Note : mengurutkan array [1..N] terurut mengecil degan maksmimum suksesif
 
     ALGORITMA
         if (N>1) then
-            Pass traversal (i..N-1)
+            Pass traversal (1..N-1)
                 {Tentukan nilai maksmimum dari T[Pass..N]}
                 IMax <- Pass
                 i traversal [Pass+1..N]
