@@ -738,7 +738,7 @@ ALGORITMA
 ```
 
 ### Selection Sort
-Note : mengurutkan array [1..N] terurut mengecil degan maksmimum suksesif
+Note : mengurutkan array [1..N] terurut mengecil degan maksmimum suksesif, atau bisa jgua terurut membasar dengan minimum suksesif
 ```
     procedure (input/output T : TabInt, input N : integer)
 
